@@ -56,6 +56,6 @@ This portfolio covers the complete database design for the ShopEase e-commerce p
 ## Status
 - [x] Case study defined
 - [x] Entities identified
-- [ ] ER diagram created
-- [ ] Schema SQL written
-- [ ] Normalisation documented
+- [x] ER diagram created (`er-diagram.png`)
+- [x] Schema SQL written (`schema.sql`)
+- [x] Normalisation documented (`normalisation.md`)
