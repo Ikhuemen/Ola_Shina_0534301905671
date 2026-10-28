@@ -1,13 +1,6 @@
--- ============================================================
--- ShopEase E-Commerce Platform
--- Portfolio 2: Query Processing and Optimisation
--- Core SQL Queries
--- MIT 8103 Advanced Database Systems
--- ============================================================
+-- ShopEase E-Commerce Platform — Core SQL Queries
 
--- ------------------------------------------------------------
--- Q1: Retrieve all products in a given category with stock info
--- ------------------------------------------------------------
+-- Q1: Products in a category with stock levels
 SELECT
     p.id,
     p.name,
@@ -20,9 +13,8 @@ JOIN inventory i ON i.product_id = p.id
 WHERE c.name = 'Electronics'
 ORDER BY p.price DESC;
 
--- ------------------------------------------------------------
--- Q2: Get all orders for a specific customer with order status
--- ------------------------------------------------------------
+
+-- Q2: All orders for a customer with payment and delivery status
 SELECT
     o.id AS order_id,
     o.created_at,
@@ -36,9 +28,8 @@ LEFT JOIN deliveries d ON d.order_id = o.id
 WHERE o.customer_id = 1
 ORDER BY o.created_at DESC;
 
--- ------------------------------------------------------------
--- Q3: Top 5 best-selling products by total quantity sold
--- ------------------------------------------------------------
+
+-- Q3: Top 5 best-selling products by quantity sold
 SELECT
     p.id,
     p.name,
@@ -52,9 +43,8 @@ GROUP BY p.id, p.name
 ORDER BY total_sold DESC
 LIMIT 5;
 
--- ------------------------------------------------------------
--- Q4: Calculate total revenue per vendor
--- ------------------------------------------------------------
+
+-- Q4: Total revenue per vendor
 SELECT
     u.id AS vendor_id,
     u.full_name AS vendor_name,
@@ -67,9 +57,8 @@ WHERE o.status != 'cancelled'
 GROUP BY u.id, u.full_name
 ORDER BY total_revenue DESC;
 
--- ------------------------------------------------------------
--- Q5: Find products with low stock (quantity < 10)
--- ------------------------------------------------------------
+
+-- Q5: Products with low stock (quantity < 10)
 SELECT
     p.id,
     p.name,
@@ -82,9 +71,8 @@ JOIN users u ON u.id = p.vendor_id
 WHERE i.quantity < 10
 ORDER BY i.quantity ASC;
 
--- ------------------------------------------------------------
+
 -- Q6: Average product rating per category
--- ------------------------------------------------------------
 SELECT
     c.name AS category,
     ROUND(AVG(r.rating), 2) AS avg_rating,
@@ -95,9 +83,8 @@ JOIN categories c ON c.id = p.category_id
 GROUP BY c.name
 ORDER BY avg_rating DESC;
 
--- ------------------------------------------------------------
--- Q7: Orders placed in the last 30 days with full details
--- ------------------------------------------------------------
+
+-- Q7: Orders placed in the last 30 days
 SELECT
     o.id AS order_id,
     u.full_name AS customer,
@@ -109,9 +96,8 @@ JOIN users u ON u.id = o.customer_id
 WHERE o.created_at >= NOW() - INTERVAL '30 days'
 ORDER BY o.created_at DESC;
 
--- ------------------------------------------------------------
--- Q8: Customers who have never placed an order (LEFT JOIN)
--- ------------------------------------------------------------
+
+-- Q8: Customers who have never placed an order
 SELECT
     u.id,
     u.full_name,

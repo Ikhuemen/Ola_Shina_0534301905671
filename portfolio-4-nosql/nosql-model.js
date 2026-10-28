@@ -1,18 +1,7 @@
-// ============================================================
-// ShopEase E-Commerce Platform
-// Portfolio 4: NoSQL and Advanced Data Models
-// MongoDB Document Model
-// MIT 8103 Advanced Database Systems
-// ============================================================
-// Run these examples in MongoDB Shell (mongosh) or MongoDB Atlas
-// Data Explorer after connecting to your cluster
-// ============================================================
+// ShopEase — MongoDB Document Model
+// Run in mongosh or MongoDB Atlas Data Explorer
 
-// ------------------------------------------------------------
-// COLLECTION 1: users
-// Embeds default address directly in the user document
-// for fast retrieval without a join
-// ------------------------------------------------------------
+// users — default address embedded for single-read retrieval
 db.users.insertMany([
   {
     _id: "usr_001",
@@ -53,11 +42,7 @@ db.users.insertMany([
 ]);
 
 
-// ------------------------------------------------------------
-// COLLECTION 2: products
-// Embeds inventory quantity and category name directly
-// to avoid lookups at read time
-// ------------------------------------------------------------
+// products — stock and category embedded to avoid lookups on reads
 db.products.insertMany([
   {
     _id: "prd_001",
@@ -95,11 +80,7 @@ db.products.insertMany([
 ]);
 
 
-// ------------------------------------------------------------
-// COLLECTION 3: orders
-// Embeds order_items array directly in the order document
-// A single document fetch retrieves the complete order
-// ------------------------------------------------------------
+// orders — items, payment, and delivery embedded in one document
 db.orders.insertMany([
   {
     _id: "ord_001",
@@ -158,11 +139,7 @@ db.orders.insertMany([
 ]);
 
 
-// ------------------------------------------------------------
-// COLLECTION 4: reviews
-// Stored as a separate collection for independent querying
-// and to avoid unbounded array growth on product documents
-// ------------------------------------------------------------
+// reviews — separate collection to avoid unbounded array growth on products
 db.reviews.insertMany([
   {
     _id: "rev_001",
@@ -183,37 +160,28 @@ db.reviews.insertMany([
 ]);
 
 
-// ============================================================
-// SAMPLE QUERIES
-// ============================================================
+// Sample queries
 
-// Find all Electronics products with stock > 0, sorted by price
 db.products.find(
   { category: "Electronics", stock: { $gt: 0 } },
   { name: 1, price: 1, stock: 1 }
 ).sort({ price: -1 });
 
-// Find all delivered orders for a specific customer
-db.orders.find(
-  { customer_id: "usr_001", status: "delivered" }
-);
+db.orders.find({ customer_id: "usr_001", status: "delivered" });
 
-// Get average rating for a product
 db.reviews.aggregate([
   { $match: { product_id: "prd_001" } },
   { $group: { _id: "$product_id", avg_rating: { $avg: "$rating" }, total: { $sum: 1 } } }
 ]);
 
-// Full-text search on product tags
-db.products.createIndex({ tags: 1 });
 db.products.find({ tags: "wireless" });
 
-// ============================================================
-// INDEXES FOR MONGODB COLLECTIONS
-// ============================================================
+
+// Indexes
+db.users.createIndex({ email: 1 }, { unique: true });
 db.products.createIndex({ category: 1, price: -1 });
 db.products.createIndex({ vendor_id: 1 });
+db.products.createIndex({ tags: 1 });
 db.orders.createIndex({ customer_id: 1, created_at: -1 });
 db.orders.createIndex({ status: 1 });
 db.reviews.createIndex({ product_id: 1 });
-db.users.createIndex({ email: 1 }, { unique: true });
