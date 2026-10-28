@@ -46,11 +46,11 @@ ShopEase is a B2C (Business-to-Consumer) e-commerce platform that allows custome
 
 | Portfolio | Topic | Status |
 |-----------|-------|--------|
-| [Portfolio 1](./portfolio-1-database-design/) | Database Design and Modelling | In Progress |
-| [Portfolio 2](./portfolio-2-query-optimisation/) | Query Processing and Optimisation | Pending |
-| [Portfolio 3](./portfolio-3-transactions-concurrency/) | Transactions and Concurrency | Pending |
-| [Portfolio 4](./portfolio-4-nosql/) | NoSQL and Advanced Data Models | Pending |
-| [Portfolio 5](./portfolio-5-distributed-cloud/) | Distributed and Cloud Database | Pending |
+| [Portfolio 1](./portfolio-1-database-design/) | Database Design and Modelling | Completed |
+| [Portfolio 2](./portfolio-2-query-optimisation/) | Query Processing and Optimisation | Completed |
+| [Portfolio 3](./portfolio-3-transactions-concurrency/) | Transactions and Concurrency | Completed |
+| [Portfolio 4](./portfolio-4-nosql/) | NoSQL and Advanced Data Models | Completed |
+| [Portfolio 5](./portfolio-5-distributed-cloud/) | Distributed and Cloud Database | Completed |
 
 ---
 
